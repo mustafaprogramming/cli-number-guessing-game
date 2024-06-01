@@ -2,33 +2,39 @@
 import inquirer from "inquirer";
 import chalk from 'chalk';
 
-console.log(chalk.blueBright.bold(`===========================================================================`))
-console.log(chalk.blueBright.bold(`\n\t\tWelcome to Mustafa - CLI Number Guessing Game\n`))
-console.log(chalk.blueBright.bold(`===========================================================================`))
-let resume="YES";
+console.log(chalk.blue(`\n\n\t     _-^+-^+‾       ◦◦◦◦◦◦          ◦◦◦ ◎ ◉ ◯ ◉ ◎ ◦◦◦          ◦◦◦◦◦◦       ‾+^-+^-_`));
+console.log(chalk.blue(`\t  <==!~~ ☆*: .｡. o(≧ ${chalk.greenBright.bold(` Welcome To Mustafa's  -  CLI Number Guessing Game`)} ≦)o .｡.:*☆ ~~!==>`));
+console.log(chalk.blue(`\t     ‾-∨+-∨+_       ◦◦◦◦◦◦          ◦◦◦ ◎ ◉ ◯ ◉ ◎ ◦◦◦          ◦◦◦◦◦◦       _+∨-+∨-‾\n\n`));
+let resume=chalk.redBright.bold("NO");
 do{
-    const randomnumber=Math.floor(Math.random()*5+1);
+    const randomnumber:number[]=[Math.floor(Math.random()*50+10),Math.floor(Math.random()*60+10),Math.floor(Math.random()*90+10),Math.floor(Math.random()*80+10),Math.floor(Math.random()*70+10),];
+    console.log(chalk.blueBright(`\n\t\t\t\t     [${chalk.redBright.bold(1)}]     [${chalk.redBright.bold(2)}]     [${chalk.redBright.bold(3)}]     [${chalk.redBright.bold(4)}]     [${chalk.redBright.bold(5)}]\n`))
+    console.log(chalk.yellowBright(`\t\t\t    --oo(  ${chalk.greenBright(`-(${chalk.blueBright.bold(randomnumber[0])})-`)}  ${chalk.greenBright(`-(${chalk.blueBright.bold(randomnumber[1])})-`)}  ${chalk.greenBright(`-(${chalk.blueBright.bold(randomnumber[2])})-`)}  ${chalk.greenBright(`-(${chalk.blueBright.bold(randomnumber[3])})-`)}  ${chalk.greenBright(`-(${chalk.blueBright.bold(randomnumber[4])})-`)}  )oo--`));
+    const randomindex=Math.floor(Math.random()*5);
+    console.log(chalk.yellowBright(`\n\n\t\t\t\t\t       --o[{ ${chalk.bgGreenBright(` ${chalk.redBright.bold(`?`)} `)} }]o--\n\n\n`))
     const answer = await inquirer.prompt([
         {
             type:"number",
             name:"UserNumber",
-            message:chalk.yellowBright.bold("Enter Your Guess Number(Limit 1-5): ")
+            message:chalk.yellowBright.bold("Enter The index of the number you think is the hidden number: ")
         },
     ]);
     if(answer.UserNumber>0&&answer.UserNumber<=5){
-        if(answer.UserNumber===randomnumber){
-            console.log(chalk.greenBright.bold(`<== Congratulation! You Guessed the Correct Number ==>`))
-        }else{
-            console.log(chalk.redBright.bold(`Sorry, Your guess was INCORRECT!`))
+        if(answer.UserNumber-1===randomindex){
+            console.log(chalk.greenBright(`\n\n\n\t\t\t   -=({Congratulation! You Guessed the Correct Number})=-`));
+            console.log(chalk.yellowBright(`\n\n\t\t\t\t\t\t--o[{ ${chalk.blueBright.bold(randomnumber[randomindex])} }]o--\n\n`))
+        }
+        else{
+            console.log(chalk.redBright.bold(`\n\n\t\t\t\t -=({ Sorry, Your Guess was Incorrect! })=-\n\n`))
         }
     }else{
-        console.log(chalk.redBright(`<== Please Enter a Number Within The Limit ==>`))
+        console.log(chalk.redBright.bold(`\n\n\t\t\t\t-=({Please Enter a Correct index number})=-\n\n`))
     }
     const continuation=await inquirer.prompt([
         {
             type:"list",
             name:"ans",
-            message:"Do you want to continue playing the game?",
+            message:chalk.yellowBright.bold("Do you want to continue playing the game?"),
             choices:[chalk.greenBright.bold("YES!"),chalk.redBright.bold("NO")]
         }
     ]);
